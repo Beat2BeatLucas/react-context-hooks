@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
+import { ThemeContext } from '../contexts/ThemeContext';
 
 class Navbar extends Component {
+    static contextType = ThemeContext;
     render() { 
+        console.log(this.context);
+        //Con this.context accedemos al los valores que pasamos
+        //por el provider que envuelve a los componentes hijos. 
+        //En este caso en concreto un objeto { isLightTheme: ..., light: ..., dark: ...}
+        const { isLightTheme, light, dark } = this.context;
+        const theme = isLightTheme ? light : dark;
         return ( 
-            <nav>
+            <nav style={{ background: theme.ui, color: theme.syntax}}>
                 <h1>Context App</h1>
                 <ul>
                     <li>Home</li>
