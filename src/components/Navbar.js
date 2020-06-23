@@ -2,24 +2,24 @@ import React, { Component } from 'react';
 import { ThemeContext } from '../contexts/ThemeContext';
 
 class Navbar extends Component {
-    static contextType = ThemeContext;
     render() { 
-        console.log(this.context);
-        //Con this.context accedemos al los valores que pasamos
-        //por el provider que envuelve a los componentes hijos. 
-        //En este caso en concreto un objeto { isLightTheme: ..., light: ..., dark: ...}
-        const { isLightTheme, light, dark } = this.context;
-        const theme = isLightTheme ? light : dark;
-        return ( 
-            <nav style={{ background: theme.ui, color: theme.syntax}}>
-                <h1>Context App</h1>
-                <ul>
-                    <li>Home</li>
-                    <li>About</li>
-                    <li>Contact</li>
-                </ul>
-            </nav>
-         );
+        return (
+        //Esta forma se usa principalmente cuando usamos componentes presentacionales (funciones)
+        <ThemeContext.Consumer>{(context) => {
+            const { isLightTheme, light, dark } = context;
+            const theme = isLightTheme ? light : dark;
+            return (
+                <nav style={{ background: theme.ui, color: theme.syntax}}>
+                    <h1>Context App</h1>
+                    <ul>
+                        <li>Home</li>
+                        <li>About</li>
+                        <li>Contact</li>
+                    </ul>
+                </nav>
+                );
+            }}</ThemeContext.Consumer>    
+        );
     }
 }
  
